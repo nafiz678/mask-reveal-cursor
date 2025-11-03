@@ -1,14 +1,14 @@
 "use client";
 
 import useMousePosition from "@/hooks/use-mouse-position";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { motion } from 'motion/react';
 
-export default function Home() {
+const Home: FC = () => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const {x, y} = useMousePosition();
-  if(x===null || y===null) {return <div>Loading</div>}
-  const size = isHovered ? 450 : 100
+  const { x, y }: { x: number | null; y: number | null } = useMousePosition();
+  if (x === null || y === null) { return <div>Loading</div> }
+  const size: number = isHovered ? 450 : 100
   return (
     <main className="h-screen">
       <motion.div
@@ -16,10 +16,10 @@ export default function Home() {
         animate={{
           maskPosition: `${x - (size / 2)}px ${y - (size / 2)}px`,
           maskSize: `${size}px`
-        }}
-        transition={{type: "tween", ease: "backOut", duration: 0.6}}
+        } as any}
+        transition={{ type: "tween", ease: "backOut", duration: 0.6 }}
       >
-        <p onMouseEnter={()=> setIsHovered(true)} onMouseLeave={()=> setIsHovered(false)}>
+        <p onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
           Crafting immersive digital experiences that combine creativity with functionality — only when the impact justifies it.
         </p>
       </motion.div>
@@ -33,3 +33,4 @@ export default function Home() {
     </main>
   );
 }
+export default Home;
